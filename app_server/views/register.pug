@@ -1,0 +1,41 @@
+extends layout
+
+block content
+  .container.mt-5
+    .row.justify-content-center
+      .col-md-7.col-lg-6
+        .card.shadow
+          .card-header.text-center.text-white(style="background:#7B9843")
+            h4 Register
+          .card-body
+            form(action="/register" method="post")
+              .mb-3
+                label.form-label(for="fullName") Full Name
+                input.form-control(type="text" name="fullName" id="fullName" required)
+              .mb-3
+                label.form-label(for="email") Email address
+                input.form-control(type="email" name="email" id="email" required)
+              .mb-3
+                label.form-label(for="phone") Phone
+                input.form-control(type="text" name="phone" id="phone" required)
+              .mb-3
+                label.form-label(for="line1") Address Line 1
+                input.form-control(type="text" name="line1" id="line1" required)
+              .mb-3
+                label.form-label(for="line2") Address Line 2
+                input.form-control(type="text" name="line2" id="line2")
+              .mb-3
+                label.form-label(for="city") City
+                input.form-control(type="text" name="city" id="city" required)
+              .mb-3
+                label.form-label(for="county") County
+                input.form-control(type="text" name="county" id="county" required)
+              .mb-3
+                label.form-label(for="eircode") Eircode
+                input.form-control(type="text" name="eircode" id="eircode")
+              .mb-3
+                label.form-label(for="password") Password
+                input.form-control(type="password" name="password" id="password" required)
+              button.btn.btn-primary.w-100(type="submit" style="background:#DCC460;border-color:#DCC460;color:#333") Create Account
+            .text-center.mt-3
+              a(href="/login") Already have an account? Login

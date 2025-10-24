@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  .container
+    header
+      h1 Irish Mythology Store
+      p.lead Explore handmade Celtic jewellery and Irish mythology books.
+    .row.justify-content-center.mt-4
+      each product in products
+        .col-md-6.col-lg-4.mb-4
+          .card.shadow-sm.h-100
+            .card-body.d-flex.flex-column
+              h5.card-title= product.name
+              if product.category && product.manufacturer
+                h6.card-subtitle.mb-2 #{product.category} by #{product.manufacturer}
+              if product.description
+                p.card-text.mt-2= product.description
+              if product.price
+                p.price.mt-auto €#{product.price.toFixed(2)}
+              a.btn.btn-outline-success.btn-sm.mt-2(href="#") View Details

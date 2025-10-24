@@ -1,0 +1,28 @@
+:root{
+  --celtic-green:#4BAA60;
+  --celtic-gold:#DCC460;
+  --celtic-olive:#7B9843;
+  --celtic-dark:#565C44;
+  --celtic-rust:#CC6133;
+  --celtic-grey:#A6A9B3;
+  --bg:#f6f5ee;
+  --text:#222;
+}
+html,body{height:100%}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);margin:0}
+.navbar{background:linear-gradient(90deg,var(--celtic-dark),var(--celtic-olive))}
+.navbar .navbar-brand,.navbar .nav-link{color:#fff!important}
+.navbar .nav-link.active{color:var(--celtic-gold)!important}
+header{text-align:center;margin-top:24px}
+header .lead{color:#6c757d}
+main{margin:32px auto;max-width:1100px;padding:0 16px}
+.card{border:1px solid rgba(0,0,0,.06);border-radius:12px}
+.card .card-title{color:var(--celtic-green)}
+.card .card-subtitle{color:#6c757d}
+.card .price{color:#1e7e34;font-weight:700}
+.btn-success{background:var(--celtic-green);border-color:var(--celtic-green)}
+.btn-success:hover{background:var(--celtic-olive);border-color:var(--celtic-olive)}
+.btn-outline-success{color:var(--celtic-green);border-color:var(--celtic-green)}
+.btn-outline-success:hover{color:#fff;background:var(--celtic-green);border-color:var(--celtic-green)}
+.form-control:focus{border-color:var(--celtic-green);box-shadow:0 0 0 .2rem rgba(75,170,96,.25)}
+footer{text-align:center;color:#888;padding:18px 0 28px}
