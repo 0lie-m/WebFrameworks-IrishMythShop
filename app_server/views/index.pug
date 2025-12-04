@@ -2,19 +2,36 @@ extends layout
 
 block content
   .container
-    header
-      h1 Irish Mythology Store
-      p.lead Explore handmade Celtic jewellery and Irish mythology books.
-    .row.justify-content-center.mt-4
-      each product in products
-        .col-md-6.col-lg-4.mb-4
-          .card.shadow-sm.h-100
-            .card-body.d-flex.flex-column
-              h5.card-title= product.name
-              if product.category && product.manufacturer
-                h6.card-subtitle.mb-2 #{product.category} by #{product.manufacturer}
-              if product.description
-                p.card-text.mt-2= product.description
-              if product.price
-                p.price.mt-auto €#{product.price.toFixed(2)}
-              a.btn.btn-outline-success.btn-sm.mt-2(href="#") View Details
+    h1 Irish Mythology Store
+    if message
+      p.text-muted= message
+
+    if products && products.length
+      .row
+        each product in products
+          .col-md-4.col-sm-6.mb-4
+            .card
+              .card-body
+                h5.card-title= product.name
+                if product.type
+                  h6.card-subtitle.mb-2.text-muted #{product.type}
+                if product.description
+                  p.card-text= product.description
+                p.card-text
+                  strong Price: 
+                  | €#{product.price}
+                if product.manufacturer
+                  p.card-text
+                    strong Manufacturer: 
+                    | #{product.manufacturer}
+                p.card-text
+                  strong In stock: 
+                  | #{product.quantity}
+                if product.tags && product.tags.length
+                  p.mt-2
+                    strong Tags:
+                  ul.list-inline
+                    each tag in product.tags
+                      li.list-inline-item.badge.bg-secondary.me-1= tag
+    else
+      p.mt-3 There are no products available right now. Please check back later.

@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Product Data</h2>
+
+  <p *ngIf="!products || !products.length">
+    No products found.
+  </p>
+
+  <table class="table table-striped" *ngIf="products && products.length">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Price (€)</th>
+        <th>Manufacturer</th>
+        <th>Quantity</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{product.name}}</td>
+        <td>{{product.type}}</td>
+        <td>{{product.price}}</td>
+        <td>{{product.manufacturer}}</td>
+        <td>{{product.quantity}}</td>
+        <td>{{product.status}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

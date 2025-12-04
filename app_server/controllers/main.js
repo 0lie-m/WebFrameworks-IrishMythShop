@@ -1,13 +1,66 @@
-const index = (req, res) => {
+const request = require('request');
+
+const apiOptions = {
+  server: 'http://localhost:3000'
+};
+
+if (process.env.NODE_ENV === 'production') {
+  apiOptions.server = process.env.PRODUCTION_SERVER || apiOptions.server;
+}
+
+const _renderHomePage = function (req, res, responseBody) {
+  let message = null;
+  let products = [];
+
+  if (responseBody instanceof Array) {
+    products = responseBody;
+    if (!products.length) {
+      message = 'No products found.';
+    }
+  } else {
+    message = 'API lookup error.';
+  }
+
   res.render('index', {
     title: 'Irish Mythology Store',
-    pageHeader: { title: 'Irish Mythology Store', strapline: 'Explore handmade Celtic jewellery and Irish mythology books' },
-    products: [
-      { name:'Ireland Map Necklace', category:'Jewellery', manufacturer:'Betty & Biddy', price:28.00, description:'Silver necklace shaped as the map of Ireland, perfect for Irish heritage lovers.' },
-      { name:'The Irish Mythological Cycle and Celtic Mythology', category:'Book', manufacturer:'AwesomeBooks', price:19.25, description:'A deep dive into the ancient Irish myth cycles, gods, and heroes.' },
-      { name:'Children of Lir Sanctuary Pendant', category:'Jewellery', manufacturer:'Elena Brennan Jewellery', price:171.00, description:'Handcrafted pendant representing the tragic Children of Lir legend.' },
-      { name:'Book of Invasions Print Edition', category:'Book', manufacturer:'Tuatha Press', price:24.50, description:'Modern annotated edition of the Lebor Gabála Érenn.' }
-    ]
+    products,
+    message
   });
 };
-module.exports = { index };
+
+const index = function (req, res) {
+  const path = '/api/products';
+  const requestOptions = {
+    url: apiOptions.server + path,
+    method: 'GET',
+    json: {}
+  };
+
+  request(requestOptions, (err, response, body) => {
+    let data = body;
+
+    if (err || !response || response.statusCode !== 200) {
+      console.log('API error:', err || (response && response.statusCode));
+      data = [];
+    }
+
+    _renderHomePage(req, res, data);
+  });
+};
+
+const data = (req, res) => {
+  res.render('data', {
+    title: 'Data',
+    pageHeader: {
+      title: 'Product Data',
+      strapline: 'Live data from MongoDB via Angular + API'
+    }
+  });
+};
+
+module.exports = {
+  index,
+  data
+};
+
+

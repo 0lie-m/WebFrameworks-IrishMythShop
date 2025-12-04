@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  .container
+    h1= pageHeader.title
+    if pageHeader && pageHeader.strapline
+      p.lead= pageHeader.strapline
+
+    app-data-list Loading...
+
+block scripts
+  script(src="/build/runtime.7090d0160e681892.js")
+  script(src="/build/polyfills.a24beecfd16fb1d1.js")
+  script(src="/build/main.6cd752a0b622ce96.js")
+  link(rel="stylesheet" href="/build/styles.ef46db3751d8e999.css")

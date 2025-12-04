@@ -1,20 +1,18 @@
 extends layout
 
 block content
-  .container.mt-5
-    .row.justify-content-center
-      .col-md-6.col-lg-5
-        .card.shadow
-          .card-header.text-center.text-white(style="background:#4BAA60")
-            h4 Login
-          .card-body
-            form(action="/login" method="post")
-              .mb-3
-                label.form-label(for="email") Email address
-                input.form-control(type="email" name="email" id="email" required)
-              .mb-3
-                label.form-label(for="password") Password
-                input.form-control(type="password" name="password" id="password" required)
-              button.btn.btn-success.w-100(type="submit") Login
-            .text-center.mt-3
-              a(href="/register") Create an account
+  h1= title
+  if error
+    p.error= error
+
+  form(method='post', action='/login')
+    div
+      label(for='email') Email
+      input(type='email', name='email', id='email', required)
+
+    div
+      label(for='password') Password
+      input(type='password', name='password', id='password', required)
+
+    div
+      button(type='submit') Log in
