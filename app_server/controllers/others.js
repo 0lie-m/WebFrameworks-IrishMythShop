@@ -2,7 +2,15 @@ const passport = require('passport');
 const { usersConn } = require('../../app_api/models/db');
 const User = usersConn.model('User');
 
-const registerUser = (req, res) => {
+const register = (req, res) => {
+  res.render('register', { title: 'Register' });
+};
+
+const login = (req, res) => {
+  res.render('login', { title: 'Login' });
+};
+
+const registerUser = (req, res, next) => {
   const userData = {
     fullName: req.body.fullName,
     email: req.body.email,
@@ -14,40 +22,40 @@ const registerUser = (req, res) => {
     eircode: req.body.eircode
   };
 
-  User.register(new User(userData), req.body.password, (err, account) => {
+  const password = req.body.password;
+
+  User.register(new User(userData), password, (err, user) => {
     if (err) {
-      console.log(err);
-      return res.render('register', {
-        title: 'Register',
-        error: err.message
-      });
+      req.flash('error', err.message || 'Registration failed');
+      return res.redirect('/register');
     }
 
-    passport.authenticate('local')(req, res, () => {
+    req.login(user, err2 => {
+      if (err2) return next(err2);
       res.redirect('/');
     });
   });
 };
 
-const login = (req, res) => {
-  res.render('login', { title: 'Login' });
-};
+const loginUser = (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) return next(err);
 
-const register = (req, res) => {
-  res.render('register', { title: 'Register' });
-};
+    if (!user) {
+      req.flash('error', (info && info.message) || 'Login failed');
+      return res.redirect('/login');
+    }
 
-const loginUser = passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true
-});
+    req.logIn(user, err2 => {
+      if (err2) return next(err2);
+      res.redirect('/');
+    });
+  })(req, res, next);
+};
 
 const logout = (req, res, next) => {
   req.logout(err => {
-    if (err) {
-      return next(err);
-    }
+    if (err) return next(err);
     res.redirect('/');
   });
 };

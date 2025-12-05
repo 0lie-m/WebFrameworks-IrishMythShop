@@ -6,7 +6,6 @@ const usersURI =
 const productsURI =
   "mongodb+srv://oliver:mtu123@cluster0.xccuakv.mongodb.net/irishMyth?retryWrites=true&w=majority";
 
-
 const usersConn = mongoose.createConnection(usersURI);
 const productsConn = mongoose.createConnection(productsURI);
 
@@ -18,7 +17,7 @@ productsConn.on("connected", () =>
   console.log(`Mongoose (PRODUCTS) connected to ${productsURI}`)
 );
 
-// Load models
+// Load models ONLY ONCE per connection
 require("./user")(usersConn);
 require("./product")(productsConn);
 

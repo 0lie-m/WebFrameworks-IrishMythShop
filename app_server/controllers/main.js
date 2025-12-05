@@ -53,7 +53,7 @@ const data = (req, res) => {
     title: 'Data',
     pageHeader: {
       title: 'Product Data',
-      strapline: 'Live data from MongoDB via Angular + API'
+      strapline: 'Live data from MongoDB using Angular + API'
     }
   });
 };
